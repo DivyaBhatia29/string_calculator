@@ -20,4 +20,9 @@ RSpec.describe StringCalculator do
     expect(StringCalculator.new.add("1,2,3,4")).to eq 10
   end
 
+  it 'allows newlines between numbers as well as commas' do
+    expect(StringCalculator.new.add("1\n2,3")).to eq 6
+    expect(StringCalculator.new.add("1\n2\n3")).to eq 6
+  end
+
 end
