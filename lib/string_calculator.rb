@@ -1,16 +1,23 @@
+class NegativeNumbersError < StandardError; end
+
 class StringCalculator
   def add(numbers)
     return 0 if numbers.nil? || numbers == ""
 
-    if numbers.start_with?("//")
-      header, rest = numbers.split("\n", 2)
-      delim = header[2] # simplest: single char after //
-      tokens = rest.split(delim)
-    else
-      tokens = numbers.split(/,|\n/)
-    end
+    tokens = if numbers.start_with?("//")
+              header, rest = numbers.split("\n", 2)
+              delim = header[2]
+              rest.split(delim)
+            else
+              numbers.split(/,|\n/)
+            end
 
-    tokens.map(&:to_i).sum
+    ints = tokens.map(&:to_i)
+    negatives = ints.select { |n| n < 0 }
+    unless negatives.empty?
+      raise NegativeNumbersError, "negative numbers not allowed #{negatives.join(',')}"
+    end
+    ints.sum
   end
 
 end

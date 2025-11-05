@@ -30,4 +30,9 @@ RSpec.describe StringCalculator do
     expect(StringCalculator.new.add("//|\n1|2|3")).to eq 6
   end
 
+  it 'raises an exception if any negative numbers are present, listing them' do
+    expect { StringCalculator.new.add("-1,2") }.to raise_error(StandardError, /negative numbers not allowed -1/)
+    expect { StringCalculator.new.add("2,-4,3,-5") }.to raise_error(StandardError, /negative numbers not allowed -4,-5/)
+  end
+
 end
