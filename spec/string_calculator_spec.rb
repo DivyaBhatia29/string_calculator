@@ -16,4 +16,8 @@ RSpec.describe StringCalculator do
     expect(StringCalculator.new.add("2,3")).to eq 5
   end
 
+  it 'adds any amount of numbers' do
+    expect(StringCalculator.new.add("1,2,3,4")).to eq 10
+  end
+
 end
